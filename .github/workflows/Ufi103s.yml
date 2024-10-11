@@ -38,7 +38,7 @@ jobs:
     - name: Build OpenWrt
       run: |
         cd openwrt-uz801
-        make -j$(nproc)
+        make -j8 V=s
 
     - name: Upload Firmware
       uses: actions/upload-artifact@v3
