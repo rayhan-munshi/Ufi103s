@@ -22,19 +22,10 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Cache Docker layers
-      uses: actions/cache@v3
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
-
+    
     - name: Build OpenWrt using Docker
       run: |
-        docker build --cache-from=type=local,src=/tmp/.buildx-cache \
-                     --cache-to=type=local,dest=/tmp/.buildx-cache-new \
-                     -t openwrt-builder .
+        docker build -t openwrt-builder .
         docker run --name openwrt-build openwrt-builder
 
     - name: Save output firmware
